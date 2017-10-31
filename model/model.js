@@ -3,24 +3,20 @@ class Device {
 	constructor(name){
 
 		this.name = name;
-		this.power = false;
+		this.isEnabled = false;
 
 	};
 
-	pressPowerButton() {
+	turnOn(){
 
-		let currentState = this.power;
+		this.isEnabled = true;
+		console.log(`${this.name} is now ON!`);
+	}
 
-		if(currentState === false ){
+	turnOff(){
 
-			console.log(`${this.name} is now ON!`);
-
-		} else {
-
-			console.log(`${this.name} is now OFF!`);
-		}
-
-		this.power = !this.power;
+		this.isEnabled = false;
+		console.log(`${this.name} is now OFF!`);
 	}
 }
 
@@ -36,26 +32,47 @@ class TV extends Device {
 
 	changeChannel(direction){
 
+		if(!this.isEnabled){
+
+			throw new Error('Could you please turn on the TV first?');
+		}
+
 		let currentChannelPosition = this.channels.indexOf(this.currentChannel),
 			availableChannels = this.channels.length - 1,
 			chosenDirection = direction.toLowerCase();
 
-		if (chosenDirection === 'forward' && (currentChannelPosition < availableChannels)){
+		switch(chosenDirection){
 
-			currentChannelPosition++;
+			case 'forward' : 
 
-		} else if(chosenDirection === 'forward' && (currentChannelPosition >= availableChannels)){
+			if(currentChannelPosition < availableChannels) {
 
-			currentChannelPosition = 0;
+				currentChannelPosition++;
 
-		} else if(chosenDirection === 'backward' && currentChannelPosition > 0) {
+			} else {
 
-			currentChannelPosition--;
+				currentChannelPosition = 0;
 
-		} else if(chosenDirection === 'backward' && currentChannelPosition == 0) {
+			}; 
 
-			currentChannelPosition = availableChannels;
-		}
+			break;
+
+			case 'backward' : 
+
+			if(currentChannelPosition > 0) {
+
+				currentChannelPosition--;
+
+			} else {
+
+				currentChannelPosition = availableChannels;
+
+			}; 
+
+			break;
+
+			default : throw new Error('Invalid direction');
+		};
 
 		this.currentChannel = this.channels[currentChannelPosition];
 		console.log(`Switched to ${this.currentChannel} channel`)
@@ -63,7 +80,29 @@ class TV extends Device {
 
 }
 
+class Climate extends Device {
+
+	constructor() {
+
+		super('Climate');
+		this.presets = ['cold', 'cool', 'warm', 'hot'];
+		this.defaultPreset = presets[0];
+
+	}
+
+	makeColder(){
+
+
+	}
+
+	makeWarmer(){
+
+
+	}
+}
+
 let tv = new TV();
+tv.changeChannel('forward');
 
 
 // class Fridge extends Device {
@@ -73,12 +112,6 @@ let tv = new TV();
 // 	}
 // }
 
-// class Climate extends Device {
-
-// 	constructor() {
-
-// 	}
-// }
 
 // class HotFloor extends Device {
 
@@ -87,9 +120,11 @@ let tv = new TV();
 // 	}
 // }
 
-// class Lights extends Device {
+class Lights extends Device {
 
-// 	constructor() {
+	constructor() {
 
-// 	}
-// }
+		super('Lights')
+
+	}
+}

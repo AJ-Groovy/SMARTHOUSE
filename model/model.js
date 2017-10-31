@@ -93,6 +93,7 @@ class Climate extends Device {
 	makeColder(){
 
 
+
 	}
 
 	makeWarmer(){
@@ -100,6 +101,30 @@ class Climate extends Device {
 
 	}
 }
+
+class Lights extends Device {
+
+	constructor() {
+
+		super('Lights');
+		this.intensity = 0;
+		this.colorPresets = ['white', 'yellow', 'red', 'blue', 'green']
+
+	}
+
+	changeIntensity(){
+
+
+	}
+
+	changeColor(){
+
+	}
+
+
+}
+
+
 
 let tv = new TV();
 tv.changeChannel('forward');
@@ -119,12 +144,3 @@ tv.changeChannel('forward');
 
 // 	}
 // }
-
-class Lights extends Device {
-
-	constructor() {
-
-		super('Lights')
-
-	}
-}

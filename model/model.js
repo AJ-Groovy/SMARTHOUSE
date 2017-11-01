@@ -1,3 +1,83 @@
+class Storage {
+
+	constructor(){
+
+		this.devices = [];
+
+	}
+
+
+
+	createNewDevice(name, id){
+
+		let deviceName = name.toLowerCase();
+
+		switch(deviceName){
+
+			case 'tv' : {
+
+				let tv = new TV();
+				this.devices.push(tv);
+				break;
+
+			}
+
+			case 'lights' : {
+
+				let lights = new Lights();
+				this.devices.push(lights);
+				break;
+
+			}
+
+			default : throw new Error ('Invalid device name');
+
+
+		} 
+	}
+
+	addDevice(device){
+
+
+	}
+
+	removeDevice(device){
+
+
+	}
+
+	turnOnAll(){
+
+		this.devices.forEach((device) => {
+
+			device.turnOn();
+			console.log('---------------------')
+		})
+
+
+	}
+
+	turnOffAll(){
+
+		this.devices.forEach((device) => {
+
+			device.turnOff();
+			console.log('---------------------')
+		})
+
+
+	}
+
+	turnOnSingle(device){
+
+	}
+
+	turnOffSingle(device){
+
+	}
+}
+
+
 class Device {
 
 	constructor(name){
@@ -125,10 +205,12 @@ class Lights extends Device {
 }
 
 
-
-let tv = new TV();
-tv.changeChannel('forward');
-
+let storage = new Storage();
+storage.createNewDevice('tv');
+storage.createNewDevice('lights');
+storage.createNewDevice('liGHTs');
+storage.turnOnAll();
+console.log(storage.devices);
 
 // class Fridge extends Device {
 
